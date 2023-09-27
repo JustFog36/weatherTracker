@@ -37,6 +37,10 @@ section{
     border-radius: px;
 }
 
+#searchButton:hover{
+    opacity: 1;
+}
+
 #searchButton {
     color: white;
     margin-top: 3px;
@@ -45,6 +49,7 @@ section{
     border-radius: 5px;
     border: none;
     padding: 10px 20px;
+    opacity: .9;
 }
 
 #citySearch {
@@ -53,7 +58,7 @@ section{
     text-align: left;
 }
 
-#searchHistory {
+#searchHistory1 {
     border: none;
     border-top: 2px solid darkgray;
     margin: 10px;
@@ -84,7 +89,7 @@ p{
 
 }
 
-#city{
+#cityWorld{
     font-weight: bolder;
     font-size: 38px;
     font-family: 'Times New Roman', Times, serif
