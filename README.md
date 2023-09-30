@@ -30,5 +30,8 @@ Utilizing API's to create a weather forecast for a desired locaiton
  - JavaScript
  - OpenWeatherMap API
 
+## Deployed link
+https://justfog36.github.io/weatherTracker/ 
+
  ## Deployed Page
  <img src="./assets/imgs/displayedPage.PNG">
