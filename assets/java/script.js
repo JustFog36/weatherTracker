@@ -13,17 +13,22 @@ $(document).ready(function() {
         const forecast = document.getElementById('forecast');
     
         // Load search history from localStorage
-        const searchHistoryData = JSON.parse(localStorage.getItem('searchHistory')) || [];
+        var searchHistoryData = JSON.parse(localStorage.getItem('searchHistory')) || [];
     
         // Function to save search history to localStorage
         function saveSearchHistory(city) {
-            searchHistoryData.push(city);
+            searchHistoryData.unshift(city);
+
+            if (searchHistoryData.length > 8) {
+                searchHistoryData=searchHistoryData.slice(0,8)
+            }
             localStorage.setItem('searchHistory', JSON.stringify(searchHistoryData));
         }
     
         // Function to display search history
         function displaySearchHistory() {
             searchHistory.innerHTML = '';
+            const recentSearches = searchHistoryData.slice(0, 8); 
             searchHistoryData.forEach(city => {
                 const historyItem = document.createElement('div');
                 historyItem.textContent = city;
@@ -44,7 +49,7 @@ $(document).ready(function() {
                 // Display current weather
                 cityWorld.textContent = `${data.name} (${new Date().toLocaleDateString()})`
                 cityTemp.textContent = `Temperature: ${data.main.temp}°F`
-                cityWind.textContent = `Wind Speed: ${(data.wind.speed * 2.23694).toFixed(2)} mph`
+                cityWind.textContent = `Wind Speed: ${(data.wind.speed).toFixed(2)} mph`
                 cityHumidity.textContent = `Humidity: ${data.main.humidity}%`
     
                 // Save search history and display it
@@ -57,12 +62,16 @@ $(document).ready(function() {
     
                 // Display 5-day forecast
                 forecast.innerHTML = '';
+                const forecastContainer = document.createElement('div'); // Create a container
+                forecastContainer.classList.add('forecast-container');
+                forecast.appendChild(forecastContainer);
+                
                 for (let i = 0; i < 5; i++) {
                     const forecastItem = document.createElement('div');
                     forecastItem.classList.add('forecast-item');
                     forecastItem.innerHTML = `
                         <h3>${new Date(forecastData.list[i*8].dt_txt).toLocaleDateString()}</h3>
-                        <p>Temperature: ${forecastData.list[i].main.temp}°F</p>
+                        <p>${mapWeatherIconToEmoji(forecastData.list[i].weather[0].icon)}</p>                        <p>Temperature: ${forecastData.list[i].main.temp}°F</p>
                         <p>Humidity: ${forecastData.list[i].main.humidity}%</p>
                         <p>Wind Speed: ${forecastData.list[i].wind.speed} mph</p>
                     `;
@@ -85,4 +94,41 @@ $(document).ready(function() {
     
         // Initial display of search history
         displaySearchHistory();
-    });
+    });0
+
+    function mapWeatherIconToEmoji(iconCode) {
+        switch (iconCode) {
+            case '01d':
+                return '☀️'; // Clear sky (day)
+            case '01n':
+                return '🌙'; // Clear sky (night)
+            case '02d':
+                return '⛅'; // Few clouds (day)
+            case '02n':
+                return '🌥️'; // Few clouds (night)
+            case '03d':
+            case '03n':
+                return '☁️'; // Scattered clouds
+            case '04d':
+            case '04n':
+                return '☁️'; // Broken clouds
+            case '09d':
+            case '09n':
+                return '🌧️'; // Rain
+            case '10d':
+                return '🌦️'; // Rain (day)
+            case '10n':
+                return '🌧️'; // Rain (night)
+            case '11d':
+            case '11n':
+                return '⛈️'; // Thunderstorm
+            case '13d':
+            case '13n':
+                return '❄️'; // Snow
+            case '50d':
+            case '50n':
+                return '🌫️'; // Mist/Fog
+            default:
+                return '❓'; // Unknown icon
+        }
+    }

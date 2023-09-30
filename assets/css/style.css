@@ -52,8 +52,24 @@ section{
     opacity: .9;
 }
 
+div.history-item {
+        color: white;
+        margin-top: 3px;
+        width: 100%;
+        background-color: #424344;
+        border-radius: 5px;
+        border: none;
+        padding: 10px 20px;
+        opacity: .9;
+        margin-left: -45px;
+} 
+
+div.history-item:hover{
+    opacity: 1;
+}
+
 #citySearch {
-    flex: 20%;
+    flex: 15%;
     padding: 10px;
     text-align: left;
 }
@@ -62,7 +78,6 @@ section{
     border: none;
     border-top: 2px solid darkgray;
     margin: 10px;
-    opacity: .5;
 }
 
 #weather {
@@ -72,21 +87,23 @@ section{
     text-align: left;
 }
 
-#currentWeather, #forecast{
+#currentWeather{
+    margin: 10px;
     border: 3px solid;
 }
 
-ul {
+#currentWeather ul {
     list-style: none;
 }
 
-li{
-   margin-bottom: 1px; 
-   text-align: left;
+#text{
+    font-size: 30px;
+    font-weight: bold;
+    margin: 10px;
 }
 
-p{
-
+#currentWeather, #forecast{
+    
 }
 
 #cityWorld{
@@ -95,6 +112,18 @@ p{
     font-family: 'Times New Roman', Times, serif
 }
 
-#currentDay{
-    font-size: ;
+.forecast-container {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap; /* Allow items to wrap onto the next line if necessary */
+}
+
+.forecast-item {
+    flex-basis: calc(20% - 10px); /* Set the width of each item with spacing in mind */
+    margin: 10px;
+    padding: 10px;
+    color: white;
+    background-color: #28283d;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+    margin-bottom: 10px; /* Optional margin to separate items vertically */
 }
